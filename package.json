@@ -1,0 +1,18 @@
+{
+  "name": "go-graphql-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./bin/air",
+    "prepare": "npm run go:download; npm run graphql:generate; npm run env:setup; npm run setup:air",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "graphql:generate": "go run github.com/99designs/gqlgen generate",
+    "env:setup": "[ ! $CI ] && ([ ! -f ./.env ] && cp ./.env.example ./.env || echo \"ENV ALREADY SETUP\") || echo \"NOT RUNNING IN CI\"",
+    "setup:air": "[ ! $CI ] && ([ ! -f ./bin/air ] && curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s || echo \"AIR ALREADY SETUP\") || echo \"NOT RUNNING IN CI\"",
+    "go:download": "go mod tidy && go mod download"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

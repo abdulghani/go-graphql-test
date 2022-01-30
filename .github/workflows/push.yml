@@ -1,0 +1,29 @@
+name: PUSH CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: checkout
+      - name: cache docker image
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./docker_image.tar
+          key: ${{ runner.os }}-${{ GITHUB.SHA }}-docker-image
+      - name: get docker image name
+        run: |
+          echo "REPO NAME (${{ GITHUB_REPOSITORY }}})"
+      - name: build
+        run: |
+          docker build . -f ./.dockerfile -t abdulghani/go-graphql-test &&
+          docker save -o ./docker_image.tar abdulghani/go-graphql-test

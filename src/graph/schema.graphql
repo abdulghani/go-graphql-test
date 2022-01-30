@@ -1,0 +1,21 @@
+type Query {
+  getUser: String
+  searchUser(payload: SearchUserInput): String
+  getBook(id: String): Book
+}
+
+input SearchUserInput {
+  id: String!
+}
+
+type User {
+  id: String!
+  name: String!
+  email: String!
+}
+
+type Book {
+  id: String!
+  title: String!
+  author: User!
+}
