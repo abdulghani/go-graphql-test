@@ -21,8 +21,10 @@ jobs:
             ./docker_image.tar
           key: ${{ runner.os }}-${{ GITHUB.SHA }}-docker-image
       - name: get docker image name
+        env:
+          REPO_NAME: "$(echo $GITHUB_REPOSITORY | sed 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/')"
         run: |
-          echo "REPO NAME ($GITHUB_REPOSITORY)"
+          echo "REPO NAME ($REPO_NAME)"
       - name: build
         run: |
           docker build . -f ./.dockerfile -t abdulghani/go-graphql-test &&
