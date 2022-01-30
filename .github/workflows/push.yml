@@ -21,7 +21,6 @@ jobs:
             ./docker_image.tar
           key: ${{ runner.os }}-${{ GITHUB.SHA }}-docker-image
       - name: get docker image name
-        env:
         run: |
           REPO_NAME="$(echo $GITHUB_REPOSITORY | sed 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/')"
           echo "REPO NAME ($REPO_NAME)" &&
